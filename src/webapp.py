@@ -5,6 +5,11 @@ import ical
 app = flask.Flask(__name__)
 
 
+@app.route('/calendar')
+def list_calendars():
+    return flask.jsonify({"sites": providers.list_providers()})
+
+
 @app.route('/calendar/<site>')
 def get_site_calendar(site):
     if not providers.has_provider(site):
@@ -12,7 +17,7 @@ def get_site_calendar(site):
     
     calendar = ical.make_ical(site)
     # TODO: can we get hacked?
-    return str(calendar), 200, {'Content-Type': 'text/calendar', 'Content-Disposition': f'attachment; filename={site}.ics'}
+    return str(calendar), 200, {'Content-Type': 'text/calendar', 'Content-Disposition': f'attachment; filename=contest-{site}.ics'}
 
 
 if __name__ == '__main__':

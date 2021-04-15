@@ -29,7 +29,7 @@ def _make_event_list(events: typing.List[dict]) -> typing.List[ContestEvent]:
             url=evt.get("url"),
             start_time=parse_time(evt.get("start_time")),
             end_time=parse_time(evt.get("end_time")),
-            duration=int(evt.get("duration", -1))
+            duration=int(float(evt.get("duration", -1)))
         )
         for evt in events
     ]
